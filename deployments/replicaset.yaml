@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myreplicaset
+spec:
+  replicas: 3
+  selector:
+    nginx: myPod
+  template:
+    metadata:
+      name: proxy
+      labels:
+        nginx: myPod
+        name: myPod
+        type: proxy
+    spec:
+      containers:
+        - name: nginxcontainer
+          image: nginx:latest
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
