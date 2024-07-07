@@ -1,30 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webdeploy
-  labels:
-    name: webdeploy
+  name: httpd-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      server: web
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
+      app: httpd
   template:
     metadata:
       labels:
-        server: web
+        app: httpd
     spec:
       containers:
-        - name: webserver
-          image: httpd:2.4
+        - name: httpd
+          image: httpd:latest
+          ports:
+            - containerPort: 80
           resources:
             limits:
               memory: "500Mi"
               cpu: "500m"
-          ports:
-            - containerPort: 80

@@ -1,0 +1,1 @@
+kubectl port-forward svc/httpd-service 8080:8080
