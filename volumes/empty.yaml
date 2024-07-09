@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    name: myapp
+spec:
+  containers:
+    - name: myapp
+      image: nginx
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: mystorage
+          mountPath: /etc/certs
+
+# other containers can reference this volume using the same name
+# lifetime is only the container lifetime
+
+  volumes:
+    - name: mystorage
+      emptyDir: {}
